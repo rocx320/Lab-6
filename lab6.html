@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .box {
+        width: 100%;
+    }
+
+    .innerbox {
+        background-color: rgb(245, 173, 195);
+        width: 50%;
+        height: 50%;
+        margin-left: 23%;
+        padding: 20px;
+        margin-top: 10%;
+        border: 2px solid rgb(0, 0, 0);
+    }
+
+    .abc {
+        padding: 10px;
+    }
+</style>
+
+<script>
+
+    function setCookie() {
+        var obj = {};//Creating custom object  
+        obj.RegId = document.getElementById("RegId").value;
+        obj.email = document.getElementById("Email").value;
+        obj.Password = document.getElementById("Password").value;
+
+        //Converting JavaScript object to JSON string      
+        var jsonString = JSON.stringify(obj);
+
+        document.cookie = jsonString;
+        var now = new Date();
+        now.setMonth(now.getMonth() + 1);
+        cookievalue = escape(document.myform.customer.value) + ";"
+
+        document.cookie = "name=" + cookievalue;
+        document.cookie = "expires=" + now.toUTCString() + ";"
+        document.write("Setting Cookies : " + "name=" + cookievalue);
+    }
+    function getCookie() {
+        if (document.cookie.length != 0) {
+            //Parsing JSON string to JSON object  
+            var obj = JSON.parse(document.cookie);
+
+            alert("RegId=" + obj.RegId + " " + "Email=" + obj.email + " " + "Password=" + obj.Password);
+        }
+        else {
+            alert("Cookie not available");
+        }
+    }
+    function show() {
+        var value = document.getElementById("demo").value;
+        if (value != "Select Color") {
+            document.bgColor = value;
+            document.cookie = "color=" + value + ";";
+        }
+    }
+    function clickCounter() {
+        if (sessionStorage.clickcount) {
+            sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
+        } else {
+            sessionStorage.clickcount = 1;
+        }
+        document.getElementById("demo").innerHTML = sessionStorage.clickcount;
+    }
+    function save_data() {
+        var input = document.getElementById('saveServer').value;
+        localStorage.setItem('server', input);
+        document.getElementById('saveServer').value = localStorage.getItem('server');
+    }
+    function deleteCooki1() {
+        document.cookie = RegId + ";max-age=0";
+        RegId = document.cookie;
+        alert("Cooki1 deleted sucessfully");
+    }
+</script>
+<div class="box">
+
+    <div class="innerbox">
+        <p>
+            <center>LAB-6</center>
+        </p>
+        <fieldset>
+            <legend>SESSION STORAGE</legend>
+        <div class="abc">
+            RegId: <input type="text" id="RegId" placeholder="RegId"><br></div>
+        <div class="abc">
+            Email: <input type="email" id="Email" placeholder="Email"><br></div>
+        <div class="abc">
+            Password: <input type="password" id="Password" placeholder="Password"><br></div>
+        <input type="button" value="Set Cookie" onclick="setCookie()">
+        <input type="button" value="Get Cookie" onclick="getCookie()">
+        <input type="button" value="Delete Cookie" onclick="deleteCooki1()">
+        <button onclick="clickCounter()" type="button">Count</button>
+        <p>Select the color <select id="demo" onchange="show()">
+                <option value="black">Select Color</option>
+                <option value="FF0000">red</option>
+                <option value="FFFF00">Yellow</option>
+                <option value="A020F0">Purple</option>
+            </select></p>
+        </fieldset>
+            <fieldset>
+                <legend>LOCAL STORAGE</legend>
+        <input type='text' name="server" id="saveServer" />
+
+        <button onclick="save_data()" type="button">Save</button>
+    </fieldset>
+
+    </div>
+</div>
+
+</body>
+
+</html>
